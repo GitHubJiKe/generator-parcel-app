@@ -1,0 +1,29 @@
+{
+  "name": "<%= name %>",
+  "version": "1.0.0",
+  "description": "<%= description %>",
+  "main": "index.js",
+  "scripts": {
+    "start": "parcel src/index.html --no-cache --open",
+    "build": "parcel build src/index.html -d prod --no-cache"
+  },
+  "private": false,
+  "dependencies": {
+    "antd": "^3.24.2",
+    "axios": "^0.19.0",
+    "moment": "^2.24.0",
+    "react": "^16.11.0",
+    "react-dom": "^16.11.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.6.4",
+    "@babel/preset-react": "^7.6.3",
+    "babel-plugin-import": "^1.12.2",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
+    "parcel-bundler": "^1.12.4"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

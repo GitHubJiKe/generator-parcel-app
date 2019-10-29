@@ -1,0 +1,30 @@
+{
+  "name": "generator-parcel-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GitHubJiKe/generator-parcel-app.git"
+  },
+  "keywords": [
+    "yeoman-generator"
+  ],
+  "files": [
+    "generators",
+    "app"
+  ],
+  "author": "peter.yuan",
+  "dependencies": {
+    "yeoman-generator": "^4.2.0",
+    "yosay": "^2.0.2"
+  },
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/GitHubJiKe/generator-parcel-app/issues"
+  },
+  "homepage": "https://github.com/GitHubJiKe/generator-parcel-app#readme"
+}

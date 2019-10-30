@@ -19,7 +19,16 @@ module.exports = class extends Generator {
 
   // 接受用户输入
   prompting() {
+    this.log(
+      yosay(`Welcome to the grand ${chalk.red("parcel-app")} generator!`)
+    );
     const prompts = [
+      {
+        type: "list",
+        name: "framework",
+        message: "React or Vue?",
+        choices: ["React", "Vue"]
+      },
       {
         type: "input",
         name: "name",
@@ -83,18 +92,38 @@ module.exports = class extends Generator {
   }
 
   _writingSrc() {
-    this.fs.copyTpl(this.templatePath("src/*"), this.destinationPath("src/"), {
-      name: this.props.name,
-      fullName: this.props.fullName,
-      author: this.props.author,
-      license: this.props.license,
-      year: new Date().getFullYear()
-    });
+    const finalPath = path.resolve(
+      __dirname,
+      `./templates/${this.getProject()}/src/*`
+    );
+    this.fs.copyTpl(
+      this.templatePath(finalPath),
+      this.destinationPath("src/"),
+      {
+        name: this.props.name,
+        fullName: this.props.fullName,
+        author: this.props.author,
+        license: this.props.license,
+        year: new Date().getFullYear()
+      }
+    );
+  }
+
+  isReact() {
+    return this.props.framework === "React";
+  }
+
+  getProject() {
+    return this.isReact() ? "react_project" : "vue_project";
   }
 
   _writingPackageJSON() {
+    const finalPath = path.resolve(
+      __dirname,
+      `./templates/${this.getProject()}/package.json`
+    );
     this.fs.copyTpl(
-      this.templatePath("_package.json"),
+      this.templatePath(finalPath),
       this.destinationPath("package.json"),
       {
         name: this.props.name,
@@ -106,9 +135,12 @@ module.exports = class extends Generator {
   }
 
   _writingREADME() {
+    const finalPath = path.resolve(
+      __dirname,
+      `./templates/${this.getProject()}/README.md`
+    );
     this.fs.copyTpl(
-      this.templatePath("README.md"),
-
+      this.templatePath(finalPath),
       this.destinationPath("README.md"),
       {
         name: this.props.name,
@@ -121,32 +153,27 @@ module.exports = class extends Generator {
   }
 
   _writingBabelrc() {
-    this.fs.copyTpl(
-      this.templatePath(".babelrc"),
-      this.destinationPath(".babelrc")
+    const finalPath = path.resolve(
+      __dirname,
+      `./templates/${this.getProject()}/.babelrc`
     );
+    this.isReact() &&
+      this.fs.copyTpl(
+        this.templatePath(finalPath),
+        this.destinationPath(".babelrc")
+      );
   }
 
   _writingGitignore() {
-    this.fs.copyTpl(
-      this.templatePath(".gitignore"),
-      this.destinationPath(".gitignore")
+    const finalPath = path.resolve(
+      __dirname,
+      `./templates/${this.getProject()}/.gitignore`
     );
-  }
-
-  // 以下划线_开头的是私有方法
-  _writingPackageJSON() {
-    // this.fs.copyTpl(from, to, context)
-    this.fs.copyTpl(
-      this.templatePath("package.json"),
-      this.destinationPath("package.json"),
-      {
-        name: this.props.name,
-        description: this.props.description,
-        keywords: this.props.keywords.split(","),
-        author: this.props.author
-      }
-    );
+    this.isReact() &&
+      this.fs.copyTpl(
+        this.templatePath(finalPath),
+        this.destinationPath(".gitignore")
+      );
   }
 
   // 安装依赖

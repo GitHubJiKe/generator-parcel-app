@@ -157,11 +157,10 @@ module.exports = class extends Generator {
       __dirname,
       `./templates/${this.getProject()}/.babelrc`
     );
-    this.isReact() &&
-      this.fs.copyTpl(
-        this.templatePath(finalPath),
-        this.destinationPath(".babelrc")
-      );
+    this.fs.copyTpl(
+      this.templatePath(finalPath),
+      this.destinationPath(".babelrc")
+    );
   }
 
   _writingGitignore() {
